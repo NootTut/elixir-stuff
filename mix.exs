@@ -12,7 +12,7 @@ defmodule ElixirStuff.MixProject do
   end
 
   def application do
-    [extra_applications: [:logger]]
+    [extra_applications: [:logger], mod: {ElixirStuff.Application, []}]
   end
 
   defp deps do
