@@ -3,7 +3,7 @@ defmodule ElixirStuff do
   alias Nostrum.Api
 
   def start_link do
-    Consumer.start_link(__MODULE__)
+    __MODULE__ |> Consumer.start_link()
   end
 
   def handle_event({:MESSAGE_CREATE, {msg}, _ws_state}) do
