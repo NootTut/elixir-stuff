@@ -14,6 +14,18 @@ defmodule ElixirStuff.Commands.List do
       embed: embed(msg, description: String.slice(msg.content(), String.length(head), String.length(msg.content()))))
   end
 
+  def dice(msg) do
+    [_head | tail] = String.split(msg.content(), " ")
+    if length(tail) == 0 do
+      Api.create_message(msg.channel_id(), embed: embed(msg, description: "you have to specify a number smh", color: @warning_color))
+    else
+      num = tail
+      |> Enum.at(0)
+      |> Integer.parse()
+      Api.create_message(msg.channel_id(), embed: embed(msg, description: "#{Enum.random(1..num)}"))
+    end
+  end
+
   def on_eval(msg) do
     if msg.author().id() != @owner_id do
       Api.create_message(msg.channel_id(), embed: embed(msg, description: "You cannot evaluate code!", color: @warning_color))
