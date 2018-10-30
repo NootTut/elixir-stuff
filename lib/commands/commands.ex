@@ -6,6 +6,8 @@ defmodule ElixirStuff.Commands.List do
   @error_color 16_725_555
   @warning_color 16_736_000
 
+  @random 0..10
+
   def on_ping(msg), do: Api.create_message(msg.channel_id(), embed: embed(msg, description: "Pong!"))
 
   def echo(msg) do
@@ -24,6 +26,15 @@ defmodule ElixirStuff.Commands.List do
       |> Integer.parse()
       Api.create_message(msg.channel_id(), embed: embed(msg, description: "#{Enum.random(1..num)}"))
     end
+  end
+  
+  def gay(msg), do: Api.create_message(msg.channel_id(), embed: embed(msg, description: "tut is gay but also awesome <3"))
+
+  def rate(msg) do
+    [head | _tail] = String.split(msg.content(), " ")
+    rated = String.slice(msg.content(), String.length(head), String.length(msg.content()))
+    Api.create_message(msg.channel_id(),
+      embed: embed(msg, description: "I rate #{rated} a #{Enum.random(@random)}/10!"))
   end
 
   def on_eval(msg) do
