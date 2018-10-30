@@ -16,13 +16,15 @@ defmodule ElixirStuff.Commands.List do
       embed: embed(msg, description: String.slice(msg.content(), String.length(head), String.length(msg.content()))))
   end
 
+  def gay(msg), do: Api.create_message(msg.channel_id(), embed: embed(msg, description: "tut is gay but also awesome <3"))
+
   def rate(msg) do
     [head | _tail] = String.split(msg.content(), " ")
     rated = String.slice(msg.content(), String.length(head), String.length(msg.content()))
     Api.create_message(msg.channel_id(),
       embed: embed(msg, description: "I rate #{rated} a #{Enum.random(@random)}/10!"))
   end
-
+  
   def on_eval(msg) do
     if msg.author().id() != @owner_id do
       Api.create_message(msg.channel_id(), embed: embed(msg, description: "You cannot evaluate code!", color: @warning_color))
