@@ -11,3 +11,4 @@ config/
 test/
 .formatter.exs
 mix.lock
+*.iml
