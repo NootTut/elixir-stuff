@@ -8,6 +8,12 @@ defmodule ElixirStuff.Commands.List do
 
   def on_ping(msg), do: Api.create_message(msg.channel_id(), embed: embed(msg, description: "Pong!"))
 
+  def echo(msg) do
+    [head | _tail] = String.split(msg.content(), " ")
+    Api.create_message(msg.channel_id(),
+      embed: embed(msg, description: String.slice(msg.content(), String.length(head), String.length(msg.content()))))
+  end
+
   def on_eval(msg) do
     if msg.author().id() != @owner_id do
       Api.create_message(msg.channel_id(), embed: embed(msg, description: "You cannot evaluate code!", color: @warning_color))
